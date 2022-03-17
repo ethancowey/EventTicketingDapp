@@ -2,11 +2,12 @@ import React, { Component } from "react";
 import SimpleStorageContract from "./abi/Ticket.json";
 import getWeb3 from "./getWeb3";
 //import { ethers } from "ethers";
+import QRCode from "react-qr-code";
 
 import "./App.css";
 
 class App extends Component {
-  state = { storageValue: 0, web3: null, accounts: null, contract: null };
+  state = { storageValue: 0, web3: null, accounts: null, contract: null, qrcode: 'hello' };
 
   componentDidMount = async () => {
     try {
@@ -68,15 +69,22 @@ class App extends Component {
     };
     getURI = async () => {
         const { contract } = this.state;
-        await  contract.methods.tokenURI(667).call(function (err, res) {
+        const uri = await  contract.methods.tokenURI(667).call(function (err, res) {
             if (err) {
                 console.log("An error occured", err)
                 return
             }
             console.log("The name is: ", res);
+            //this.setState({qrcode: res});
+            return res
             //this.setState({ storageValue: res });
         })
+        this.setState({qrcode: uri});
+        return uri
+    }
 
+    generateQR = async () => {
+        await this.getURI;
     }
 
   render() {
@@ -96,7 +104,8 @@ class App extends Component {
           Try changing the value stored on <strong>line 42</strong> of App.js.
         </p>
           <button onClick={this.buyNew}>Buy a new ticket from the vendor for 1 eth</button>
-          <button onClick={this.getURI}>Get URI</button>
+          <button onClick={this.getURI}>Get your QR code</button>
+          <QRCode value={this.state.qrcode} />
         <div>The stored value is: {this.state.storageValue}</div>
       </div>
     );
