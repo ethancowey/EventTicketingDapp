@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import SimpleStorageContract from "./abi/Ticket.json";
 import getWeb3 from "./getWeb3";
-import { ethers } from "ethers";
+//import { ethers } from "ethers";
 
 import "./App.css";
 
@@ -54,17 +54,30 @@ class App extends Component {
               console.log("An error occured", err)
               return
           }
-          console.log("The balance is: ", res);
+          console.log("The name is: ", res);
           //this.setState({ storageValue: res });
       })
   };
     buyNew = async () => {
         const { accounts, contract } = this.state;
         console.log(contract);
-
+        //const hex = '0x'+Eth.Buffer
         // Stores a given value, 5 by default.
-        await contract.methods.buyVendor(accounts[0], 1391).send({from: accounts[0], value: ethers.utils.parseEther("1.0")});
+        //await contract.methods.make2().send({from: accounts[0]})
+        await contract.methods.buyVendor(accounts[0], 667, 'string').send({from: accounts[0], value: 1000000000000000000}).then();
     };
+    getURI = async () => {
+        const { contract } = this.state;
+        await  contract.methods.tokenURI(667).call(function (err, res) {
+            if (err) {
+                console.log("An error occured", err)
+                return
+            }
+            console.log("The name is: ", res);
+            //this.setState({ storageValue: res });
+        })
+
+    }
 
   render() {
     if (!this.state.web3) {
@@ -82,7 +95,8 @@ class App extends Component {
         <p>
           Try changing the value stored on <strong>line 42</strong> of App.js.
         </p>
-          <button onClick={this.buyNew}>Buy a new ticket from the vendor</button>
+          <button onClick={this.buyNew}>Buy a new ticket from the vendor for 1 eth</button>
+          <button onClick={this.getURI}>Get URI</button>
         <div>The stored value is: {this.state.storageValue}</div>
       </div>
     );
