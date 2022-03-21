@@ -65,7 +65,7 @@ class App extends Component {
         //const hex = '0x'+Eth.Buffer
         // Stores a given value, 5 by default.
         //await contract.methods.make2().send({from: accounts[0]})
-        await contract.methods.buyVendor(accounts[0], 667, 'string').send({from: accounts[0], value: 1000000000000000000}).then();
+        await contract.methods.buyVendor(accounts[0], 667, 2, 'poster show', 11).send({from: accounts[0], value: 1000000000000000000}).then();
     };
     getURI = async () => {
         const { contract } = this.state;
@@ -79,7 +79,8 @@ class App extends Component {
             return res
             //this.setState({ storageValue: res });
         })
-        this.setState({qrcode: uri});
+
+        this.setState({qrcode: uri + navigator.geolocation});
         return uri
     }
 
