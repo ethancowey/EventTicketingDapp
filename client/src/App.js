@@ -67,9 +67,9 @@ class App extends Component {
         //await contract.methods.make2().send({from: accounts[0]})
         await contract.methods.buyVendor(accounts[0], 667, 2, 'poster show', 11).send({from: accounts[0], value: 1000000000000000000}).then();
     };
-    getURI = async () => {
+    getDetails = async () => {
         const { contract } = this.state;
-        const uri = await  contract.methods.tokenURI(667).call(function (err, res) {
+        const uri = await  contract.methods.ticketDetails(667).call(function (err, res) {
             if (err) {
                 console.log("An error occured", err)
                 return
@@ -80,12 +80,8 @@ class App extends Component {
             //this.setState({ storageValue: res });
         })
 
-        this.setState({qrcode: uri + navigator.geolocation});
+        this.setState({qrcode: uri.eventID + uri.seat + navigator.geolocation});
         return uri
-    }
-
-    generateQR = async () => {
-        await this.getURI;
     }
 
   render() {
@@ -105,7 +101,7 @@ class App extends Component {
           Try changing the value stored on <strong>line 42</strong> of App.js.
         </p>
           <button onClick={this.buyNew}>Buy a new ticket from the vendor for 1 eth</button>
-          <button onClick={this.getURI}>Get your QR code</button>
+          <button onClick={this.getDetails}>Get your QR code</button>
           <QRCode value={this.state.qrcode} />
         <div>The stored value is: {this.state.storageValue}</div>
       </div>
