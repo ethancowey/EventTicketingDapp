@@ -3,6 +3,8 @@ import SimpleStorageContract from "./abi/Ticket.json";
 import getWeb3 from "./getWeb3";
 //import { ethers } from "ethers";
 import QRCode from "react-qr-code";
+import {BrowserRouter, Route, Routes} from 'react-router-dom';
+import BuyPreowned from './components/BuyPreowned';
 
 import "./App.css";
 
@@ -65,7 +67,7 @@ class App extends Component {
         //const hex = '0x'+Eth.Buffer
         // Stores a given value, 5 by default.
         //await contract.methods.make2().send({from: accounts[0]})
-        await contract.methods.buyVendor(accounts[0], 667, 2, 'poster show', 11).send({from: accounts[0], value: 1000000000000000000}).then();
+        await contract.methods.buyVendor(accounts[0], 6674, 2, 'poster show', 11).send({from: accounts[0], value: 1000000000000000000}).then();
     };
     getDetails = async () => {
         const { contract } = this.state;
@@ -104,6 +106,13 @@ class App extends Component {
           <button onClick={this.getDetails}>Get your QR code</button>
           <QRCode value={this.state.qrcode} />
         <div>The stored value is: {this.state.storageValue}</div>
+          <BrowserRouter>
+              <Routes>
+                  <Route path="/marketplace" element={<BuyPreowned parentState = {this.state}/>}>
+
+                  </Route>
+              </Routes>
+          </BrowserRouter>
       </div>
     );
   }

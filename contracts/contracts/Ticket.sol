@@ -36,6 +36,9 @@ contract Ticket is ERC721(name, symbol), ERC721URIStorage, Ownable {
             ticketDetails[ticketID] = Details(nameEvent, eventID, seatNum);
         }
     }
+    //buy preowned //transferfrom //approve functions from openzepplin can help
+
+    //sell require msg.sender to be the owner
 
     function vendorWithdraw() public payable{
         require(msg.sender == vendor, "You are not the ticket vendor");
