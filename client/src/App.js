@@ -6,6 +6,7 @@ import getWeb3 from "./getWeb3";
 import QRCode from "react-qr-code";
 import {BrowserRouter, Route, Routes} from 'react-router-dom';
 import BuyPreowned from './components/BuyPreowned';
+import Admin from "./components/Admin";
 
 import "./App.css";
 
@@ -116,6 +117,9 @@ class App extends Component {
           <BrowserRouter>
               <Routes>
                   <Route path="/marketplace" element={<BuyPreowned parentState = {this.state}/>}>
+
+                  </Route>
+                  <Route path="/admin" element={<Admin parentState = {this.state}/>}>
 
                   </Route>
               </Routes>
