@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import SimpleStorageContract from "./abi/Ticket.json";
+import TicketContract from "./abi/Ticket.json";
 import getWeb3 from "./getWeb3";
 //import { ethers } from "ethers";
 import QRCode from "react-qr-code";
@@ -21,15 +21,16 @@ class App extends Component {
 
       // Get the contract instance.
       const networkId = await web3.eth.net.getId();
-      const deployedNetwork = SimpleStorageContract.networks[networkId];
+      const deployedNetwork = TicketContract.networks[networkId];
       const instance = new web3.eth.Contract(
-        SimpleStorageContract.abi,
+        TicketContract.abi,
         deployedNetwork && deployedNetwork.address,
       );
 
       // Set web3, accounts, and contract to the state, and then proceed with an
       // example of interacting with the contract's methods.
       this.setState({ web3, accounts, contract: instance }, this.runExample);
+      console.log(instance);
     } catch (error) {
       // Catch any errors for any of the above operations.
       alert(
@@ -67,11 +68,11 @@ class App extends Component {
         //const hex = '0x'+Eth.Buffer
         // Stores a given value, 5 by default.
         //await contract.methods.make2().send({from: accounts[0]})
-        await contract.methods.buyVendor(accounts[0], 6674, 2, 'poster show', 11).send({from: accounts[0], value: 1000000000000000000}).then();
+        await contract.methods.buyVendor(accounts[0], 66745, 2, 'poster show').send({from: accounts[0], value: 1000000000000000000}).then();
     };
     getDetails = async () => {
         const { contract } = this.state;
-        const uri = await  contract.methods.ticketDetails(667).call(function (err, res) {
+        const uri = await  contract.methods.ticketDetails(66745).call(function (err, res) {
             if (err) {
                 console.log("An error occured", err)
                 return

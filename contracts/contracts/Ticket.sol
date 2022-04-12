@@ -13,10 +13,10 @@ string constant name = "EventTicket";
 
 string constant symbol = "ETCK";
 
-contract ETicket is ERC721(name, symbol), Ownable, AccessControl, ERC721Enumerable {
+contract Ticket is ERC721(name, symbol), Ownable, AccessControl, ERC721Enumerable {
     bytes32 public constant VERIFIED_ROLE = keccak256("VERIFIED"); // hash a USER as a role constant
     bytes32 public constant SCANNER_ROLE = keccak256("SCANNER"); //Ticket scanner role
-    constructor() public {
+    constructor() {
         // Grant the contract deployer the default admin role: it will be able
         // to grant and revoke any roles
         _setupRole(DEFAULT_ADMIN_ROLE, msg.sender);
@@ -82,6 +82,7 @@ contract ETicket is ERC721(name, symbol), Ownable, AccessControl, ERC721Enumerab
         require(msg.value >= ticketPrice, "This ticket costs more that paid");
         require(eventDetails[eventID].soldOut == false, "This ticket is sold out");
         require(eventDetails[eventID].presale == false, "This ticket is on presale still");
+        require(eventDetails[eventID].eventID != 0, "Not a valid ticket to purchase");
 
         ticketIDs.increment();
         uint256 ticketID = ticketIDs.current();//auto increments id is gas efficient compared to enumerate approach
@@ -106,6 +107,7 @@ contract ETicket is ERC721(name, symbol), Ownable, AccessControl, ERC721Enumerab
         require(eventDetails[eventID].soldOut == false, "This ticket is sold out");
         require(eventDetails[eventID].presale == true, "This ticket is on presale still");
         require(verified(msg.sender) == true, "You are not a verified user");
+        require(eventDetails[eventID].eventID != 0, "Not a valid ticket to purchase");
 
         ticketIDs.increment();
         uint256 ticketID = ticketIDs.current();//auto increments id is gas efficient compared to enumerate approach
