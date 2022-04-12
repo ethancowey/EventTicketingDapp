@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import TicketContract from "./abi/Ticket.json";
+import MarketContract from "./abi/TicketMarket.json";
 import getWeb3 from "./getWeb3";
 //import { ethers } from "ethers";
 import QRCode from "react-qr-code";
@@ -9,7 +10,7 @@ import BuyPreowned from './components/BuyPreowned';
 import "./App.css";
 
 class App extends Component {
-  state = { storageValue: 0, web3: null, accounts: null, contract: null, qrcode: 'hello' };
+  state = { storageValue: 0, web3: null, accounts: null, ticketContract: null, marketContract: null, qrcode: 'hello' };
 
   componentDidMount = async () => {
     try {
@@ -22,15 +23,20 @@ class App extends Component {
       // Get the contract instance.
       const networkId = await web3.eth.net.getId();
       const deployedNetwork = TicketContract.networks[networkId];
-      const instance = new web3.eth.Contract(
+      const ticketInstance = new web3.eth.Contract(
         TicketContract.abi,
         deployedNetwork && deployedNetwork.address,
+      );
+      const marketInstance = new web3.eth.Contract(
+          MarketContract.abi,
+          deployedNetwork && deployedNetwork.address,
       );
 
       // Set web3, accounts, and contract to the state, and then proceed with an
       // example of interacting with the contract's methods.
-      this.setState({ web3, accounts, contract: instance }, this.runExample);
-      console.log(instance);
+      this.setState({ web3, accounts, ticketContract: ticketInstance, marketContract: marketInstance }, this.runExample);
+      console.log(marketInstance);
+      console.log(ticketInstance);
     } catch (error) {
       // Catch any errors for any of the above operations.
       alert(
@@ -41,11 +47,11 @@ class App extends Component {
   };
 
   runExample = async () => {
-    const { accounts, contract } = this.state;
-    console.log(contract);
+    const { accounts, ticketContract } = this.state;
+    console.log(ticketContract);
 
     // Stores a given value, 5 by default.
-    await contract.methods.balanceOf(accounts[0]).call(function (err, res) {
+    await ticketContract.methods.balanceOf(accounts[0]).call(function (err, res) {
         if (err) {
             console.log("An error occured", err)
             return
@@ -53,7 +59,7 @@ class App extends Component {
         console.log("The balance is: ", res);
         //this.setState({ storageValue: res });
     })
-      await contract.methods.name().call(function (err, res) {
+      await ticketContract.methods.name().call(function (err, res) {
           if (err) {
               console.log("An error occured", err)
               return
@@ -63,16 +69,16 @@ class App extends Component {
       })
   };
     buyNew = async () => {
-        const { accounts, contract } = this.state;
-        console.log(contract);
+        const { accounts, ticketContract, marketContract } = this.state;
+        console.log(ticketContract);
         //const hex = '0x'+Eth.Buffer
         // Stores a given value, 5 by default.
         //await contract.methods.make2().send({from: accounts[0]})
-        await contract.methods.buyVendor(accounts[0], 66745, 2, 'poster show').send({from: accounts[0], value: 1000000000000000000}).then();
+        await ticketContract.methods.buyVendor(accounts[0], marketContract._address, 1, 1).send({from: accounts[0], value: 1000000000000000000}).then();
     };
     getDetails = async () => {
-        const { contract } = this.state;
-        const uri = await  contract.methods.ticketDetails(66745).call(function (err, res) {
+        const { ticketContract } = this.state;
+        const uri = await  ticketContract.methods.ticketDetails(66745).call(function (err, res) {
             if (err) {
                 console.log("An error occured", err)
                 return
