@@ -70,14 +70,6 @@ class App extends Component {
           //this.setState({ storageValue: res });
       })
   };
-    buyNew = async () => {
-        const { accounts, ticketContract, marketContract } = this.state;
-        console.log(ticketContract);
-        //const hex = '0x'+Eth.Buffer
-        // Stores a given value, 5 by default.
-        //await contract.methods.make2().send({from: accounts[0]})
-        await ticketContract.methods.buyVendor(accounts[0], marketContract._address, 1, 1).send({from: accounts[0], value: 1000000000000000000}).then();
-    };
     getDetails = async () => {
         const { ticketContract } = this.state;
         const uri = await  ticketContract.methods.ticketDetails(66745).call(function (err, res) {
@@ -111,7 +103,6 @@ class App extends Component {
         <p>
           Try changing the value stored on <strong>line 42</strong> of App.js.
         </p>
-          <button onClick={this.buyNew}>Buy a new ticket from the vendor for 1 eth</button>
           <button onClick={this.getDetails}>Get your QR code</button>
           <QRCode value={this.state.qrcode} />
         <div>The stored value is: {this.state.storageValue}</div>

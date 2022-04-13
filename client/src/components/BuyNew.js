@@ -33,11 +33,17 @@ class BuyNew extends Component {
         console.log(tickets);
         this.setState({ticketsAvailable: tickets});
     };
+    //buyVendor(address to, address marketAddress, uint eventID, uint256 seatNum)
+    buyNewT = async (eventID) => {
+        const { accounts, ticketContract, marketContract } = this.props.parentState;
+        console.log(ticketContract);
+        await ticketContract.methods.buyVendor(accounts[0], marketContract._address, eventID, 1).send({from: accounts[0], value: 1000000000000000000}).then();
+    };
 
 
     render() {
         const listItems = this.state.ticketsAvailable.map((link) =>
-            <button key={link.eventID}>Buy ticket for {link.eventName}</button>
+            <button key={link.eventID} onClick={() => this.buyNewT(link.eventID)}>Buy ticket for {link.eventName}</button>
         );
         return (
             <div className="App">
