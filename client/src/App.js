@@ -7,6 +7,7 @@ import QRCode from "react-qr-code";
 import {BrowserRouter, Route, Routes} from 'react-router-dom';
 import BuyPreowned from './components/BuyPreowned';
 import Admin from "./components/Admin";
+import BuyNew from "./components/BuyNew";
 
 import "./App.css";
 
@@ -120,6 +121,9 @@ class App extends Component {
 
                   </Route>
                   <Route path="/admin" element={<Admin parentState = {this.state}/>}>
+
+                  </Route>
+                  <Route path="/buy" element={<BuyNew parentState = {this.state}/>}>
 
                   </Route>
               </Routes>
