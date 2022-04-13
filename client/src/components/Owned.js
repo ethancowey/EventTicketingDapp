@@ -32,7 +32,23 @@ class Owned extends Component {
             tickets.push(ticketIDs);
         }
         console.log(tickets);
-        this.setState({ticketsOwned: tickets});
+        let ticketsDetails = []
+        for(let i = 0; i< tickets.length; i++){
+            const ticketDetail = await ticketContract.methods.ticketDetails(tickets[i]).call(function (err, res) {
+                if (err) {
+                    console.log("An error occured", err)
+                    return
+                }
+                console.log("The balance is: ", res);
+                res.ticketID = tickets[i];
+                return res;
+                //this.setState({ storageValue: res });
+            })
+            ticketsDetails.push(ticketDetail);
+
+        }
+        console.log(ticketsDetails);
+        this.setState({ticketsOwned: ticketsDetails});
     };
     //buyVendor(address to, address marketAddress, uint eventID, uint256 seatNum)
     generateQR = async (eventID) => {
@@ -42,7 +58,7 @@ class Owned extends Component {
 
     render() {
         const listItems = this.state.ticketsOwned.map((link) =>
-            <button key={link.eventID} onClick={() => this.generateQR(link.eventID)}>Buy ticket for {link.eventName}</button>
+            <button key={link.ticketID} onClick={() => this.generateQR(link.eventID)}>Buy ticket for {link.eventName}</button>
         );
         return (
             <div className="App">
