@@ -8,6 +8,7 @@ import {BrowserRouter, Route, Routes} from 'react-router-dom';
 import BuyPreowned from './components/BuyPreowned';
 import Admin from "./components/Admin";
 import BuyNew from "./components/BuyNew";
+import Owned from "./components/Owned";
 
 import "./App.css";
 
@@ -115,6 +116,9 @@ class App extends Component {
 
                   </Route>
                   <Route path="/buy" element={<BuyNew parentState = {this.state}/>}>
+
+                  </Route>
+                  <Route path="/owned" element={<Owned parentState = {this.state}/>}>
 
                   </Route>
               </Routes>
