@@ -13,7 +13,7 @@ import Owned from "./components/Owned";
 import "./App.css";
 
 class App extends Component {
-  state = { storageValue: 0, web3: null, accounts: null, ticketContract: null, marketContract: null, qrcode: 'hello' };
+  state = { storageValue: 0, web3: null, accounts: null, ticketContract: null, marketContract: null};
 
   componentDidMount = async () => {
     try {
@@ -71,22 +71,6 @@ class App extends Component {
           //this.setState({ storageValue: res });
       })
   };
-    getDetails = async () => {
-        const { ticketContract } = this.state;
-        const uri = await  ticketContract.methods.ticketDetails(66745).call(function (err, res) {
-            if (err) {
-                console.log("An error occured", err)
-                return
-            }
-            console.log("The name is: ", res);
-            //this.setState({qrcode: res});
-            return res
-            //this.setState({ storageValue: res });
-        })
-
-        this.setState({qrcode: uri.eventID + uri.seat + navigator.geolocation});
-        return uri
-    }
 
   render() {
     if (!this.state.web3) {
@@ -104,8 +88,6 @@ class App extends Component {
         <p>
           Try changing the value stored on <strong>line 42</strong> of App.js.
         </p>
-          <button onClick={this.getDetails}>Get your QR code</button>
-          <QRCode value={this.state.qrcode} />
         <div>The stored value is: {this.state.storageValue}</div>
           <BrowserRouter>
               <Routes>
