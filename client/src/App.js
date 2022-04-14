@@ -10,6 +10,7 @@ import Admin from "./components/Admin";
 import BuyNew from "./components/BuyNew";
 import Owned from "./components/Owned";
 import ListOwned from "./components/ListOwned";
+import Scan from "./components/Scan";
 
 import "./App.css";
 
@@ -105,6 +106,9 @@ class App extends Component {
 
                   </Route>
                   <Route path="/list" element={<ListOwned parentState = {this.state}/>}>
+
+                  </Route>
+                  <Route path="/scan" element={<Scan parentState = {this.state}/>}>
 
                   </Route>
               </Routes>
