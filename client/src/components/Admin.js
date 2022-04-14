@@ -55,6 +55,12 @@ class Admin extends Component {
 
         await ticketContract.methods.addScanner(document.getElementById("scannerAddress").value).send({from: accounts[0]});
     };
+    issueReward = async () => {
+        const { ticketContract, accounts} = this.props.parentState;
+        console.log(document.getElementById("scannerAddress").value);
+
+        await ticketContract.methods.addScanner(document.getElementById("scannerAddress").value).send({from: accounts[0]});
+    };
 
     render() {
         return (

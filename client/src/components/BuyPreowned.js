@@ -20,7 +20,9 @@ class BuyPreowned extends Component {
         const { accounts, ticketContract, marketContract } = this.props.parentState;
         console.log(ticketContract);
         console.log(ticketID);
-        await marketContract.methods.createMarketSale(ticketContract._address, ticketID).send({from: accounts[0], value: 1000000000000000000}).then();
+        await marketContract.methods.createMarketSale(ticketContract._address, ticketID).send({from: accounts[0], value: 1000000000000000000}).then().catch(
+            (error) => {alert(error)}
+        );
     };
 
     render() {
