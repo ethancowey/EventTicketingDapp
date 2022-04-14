@@ -3,12 +3,13 @@ import TicketContract from "./abi/Ticket.json";
 import MarketContract from "./abi/TicketMarket.json";
 import getWeb3 from "./getWeb3";
 //import { ethers } from "ethers";
-import QRCode from "react-qr-code";
+//import QRCode from "react-qr-code";
 import {BrowserRouter, Route, Routes} from 'react-router-dom';
 import BuyPreowned from './components/BuyPreowned';
 import Admin from "./components/Admin";
 import BuyNew from "./components/BuyNew";
 import Owned from "./components/Owned";
+import ListOwned from "./components/ListOwned";
 
 import "./App.css";
 
@@ -30,16 +31,16 @@ class App extends Component {
         TicketContract.abi,
         deployedNetwork && deployedNetwork.address,
       );
+        const deployedMarket = MarketContract.networks[networkId];
+        console.log(ticketInstance);
       const marketInstance = new web3.eth.Contract(
           MarketContract.abi,
-          deployedNetwork && deployedNetwork.address,
+          deployedMarket && deployedMarket.address,
       );
-
+        console.log(marketInstance);
       // Set web3, accounts, and contract to the state, and then proceed with an
       // example of interacting with the contract's methods.
       this.setState({ web3, accounts, ticketContract: ticketInstance, marketContract: marketInstance }, this.runExample);
-      console.log(marketInstance);
-      console.log(ticketInstance);
     } catch (error) {
       // Catch any errors for any of the above operations.
       alert(
@@ -101,6 +102,9 @@ class App extends Component {
 
                   </Route>
                   <Route path="/owned" element={<Owned parentState = {this.state}/>}>
+
+                  </Route>
+                  <Route path="/list" element={<ListOwned parentState = {this.state}/>}>
 
                   </Route>
               </Routes>
