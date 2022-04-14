@@ -21,7 +21,7 @@ class Admin extends Component {
             return res
             //this.setState({ storageValue: res });
         });
-        await ticketContract.methods.addEvent(document.getElementById("name").value, document.getElementById("seats").value, document.getElementById("presale").value).send({from: accounts[0]});
+        await ticketContract.methods.addEvent(document.getElementById("name").value, document.getElementById("seats").value, false).send({from: accounts[0]});
         await ticketContract.methods.eventDetails(7).call(function (err, res) {
             if (err) {
                 console.log("An error occured", err)

@@ -29,7 +29,7 @@ class ListOwned extends Component {
             id++;
             tickets.push(ticketIDs);
         }
-        console.log(tickets);
+        console.log(Object.keys(tickets).length);
         let ticketsDetails = []
         for(let i = 0; i< tickets.length; i++){
             const ticketDetail = await ticketContract.methods.ticketDetails(tickets[i]).call(function (err, res) {
@@ -45,6 +45,7 @@ class ListOwned extends Component {
             ticketsDetails.push(ticketDetail);
 
         }
+        console.log('here');
         console.log(ticketsDetails);
         this.setState({ticketsOwned: ticketsDetails});
     };
@@ -53,6 +54,20 @@ class ListOwned extends Component {
         console.log(ticketContract._address);
         console.log(marketContract._address);
         await marketContract.methods.createMarketItem(ticketContract._address, ticketID, 1).send({from: accounts[0], value: 1000000000000000000}).then();
+    };
+    viewListed = async (ticketID) => {
+        const {ticketContract, marketContract } = this.props.parentState;
+        console.log(ticketContract._address);
+        console.log(marketContract._address);
+        await marketContract.methods.fetchMarketItems().call(function (err, res) {
+            if (err) {
+                console.log("An error occured", err)
+                return
+            }
+            console.log("The balance is: ", res);
+            return res;
+            //this.setState({ storageValue: res });
+        });
     };
 
 
@@ -65,6 +80,7 @@ class ListOwned extends Component {
                 <ul>
                     {listItems}
                 </ul>
+                <button onClick={this.viewListed}>Listed?</button>
             </div>
         );
     }

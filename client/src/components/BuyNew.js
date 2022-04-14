@@ -37,6 +37,7 @@ class BuyNew extends Component {
     buyNewT = async (eventID) => {
         const { accounts, ticketContract, marketContract } = this.props.parentState;
         console.log(ticketContract);
+        console.log(eventID);
         await ticketContract.methods.buyVendor(accounts[0], marketContract._address, eventID, 1).send({from: accounts[0], value: 1000000000000000000}).then();
     };
 
