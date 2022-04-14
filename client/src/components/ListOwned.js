@@ -53,9 +53,11 @@ class ListOwned extends Component {
         const { accounts, ticketContract, marketContract } = this.props.parentState;
         console.log(ticketContract._address);
         console.log(marketContract._address);
-        await marketContract.methods.createMarketItem(ticketContract._address, ticketID, 1).send({from: accounts[0], value: 1000000000000000000}).then();
+        //Allow market to sell on your behalf
+        await ticketContract.methods.setApprovalForAll(marketContract._address, true).send({from: accounts[0]}).then();
+        await marketContract.methods.createMarketItem(ticketContract._address, ticketID, 1).send({from: accounts[0], value: 10}).then();
     };
-    viewListed = async (ticketID) => {
+    viewListed = async () => {
         const {ticketContract, marketContract } = this.props.parentState;
         console.log(ticketContract._address);
         console.log(marketContract._address);
