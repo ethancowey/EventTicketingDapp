@@ -44,7 +44,7 @@ class BuyNew extends Component {
 
     render() {
         const listItems = this.state.ticketsAvailable.map((link) =>
-            <button key={link.eventID} onClick={() => this.buyNewT(link.eventID)}>Buy ticket for {link.eventName}</button>
+            <button key={link.eventID} onClick={() => this.buyNewT(link.eventID)}>Buy ticket for {link.eventName} For presale {link.presale}</button>
         );
         return (
             <div className="App">
@@ -55,14 +55,6 @@ class BuyNew extends Component {
                     If your contracts compiled and migrated successfully, below will show
                     a stored value of 5 (by default).
                 </p>
-                <h2>Add a new event</h2>
-                <label>Event Name</label>
-                <input type="string" name="event name" id="name"/>
-                <label>Seats</label>
-                <input type="number" name="seats available" id="seats"/>
-                <label>On presale</label>
-                <input type="bool" name="On presale" id="presale"/>
-                <button onClick={this.buyTicket}>Add new event</button>
             </div>
         );
     }
