@@ -18,12 +18,12 @@ class Scan extends Component {
 
     };
     //Scan ticket
-    scanTicket = async (ticketID, eventID) => {
+    scanTicket = async () => {
         const { ticketContract, accounts} = this.props.parentState;
 
         await ticketContract.methods.scanTicket(document.getElementById("ticket").value, document.getElementById("event").value).send({from: accounts[0]}).catch((
             error =>{
-                alert(error)
+                alert("You are not the scanner or ticket is Invalid" + error)
             })
         );
     };
