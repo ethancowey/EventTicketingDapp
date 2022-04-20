@@ -42,8 +42,8 @@ class Admin extends Component {
     issueReward = async () => {
         const { ticketContract, accounts} = this.props.parentState;
         console.log(document.getElementById("scannerAddress").value);
-
-        await ticketContract.methods.addScanner(document.getElementById("scannerAddress").value).send({from: accounts[0]});
+        //rewardHolder(address user, string memory rewardName)
+        await ticketContract.methods.rewardHolder((document.getElementById("receiverAddress").value), document.getElementById("reward")).send({from: accounts[0]});
     };
 
     render() {
@@ -64,11 +64,17 @@ class Admin extends Component {
                 <h2>End a presale</h2>
                 <label>Event ID to end presale</label>
                 <input type="number" name="end presale" id="endPresale"/>
-                <button onClick={this.finishPresale}>Add new event</button>
+                <button onClick={this.finishPresale}>End presale for event</button>
                 <h2>Add a new scanner</h2>
                 <label>Address of new scanner</label>
                 <input type="string" name="scanner" id="scannerAddress"/>
-                <button onClick={this.newScanner}>Add new event</button>
+                <button onClick={this.newScanner}>Add new scanner</button>
+                <h2>Issue a reward</h2>
+                <label>Address of receiver</label>
+                <input type="string" name="receiver" id="receiverAddress"/>
+                <label>Reward name and details</label>
+                <input type="string" name="reward" id="reward"/>
+                <button onClick={this.issueReward}>Add new scanner</button>
             </div>
         );
     }
