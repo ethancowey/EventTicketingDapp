@@ -27,7 +27,7 @@ class BuyPreowned extends Component {
 
     render() {
         const listItems = this.state.ticketsForSale.map((link) =>
-            <button key={link.tokenId} onClick={() => this.buyPre(link.tokenId)}>Buy ticket for {link.tokenId}</button>
+            <button key={link.tokenId} onClick={() => this.buyPre(link.tokenId)}>Buy preowned ticket for {link.tokenId}</button>
         );
         return (
             <div className="App">

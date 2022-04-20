@@ -43,7 +43,7 @@ class Admin extends Component {
         const { ticketContract, accounts} = this.props.parentState;
         console.log(document.getElementById("scannerAddress").value);
         //rewardHolder(address user, string memory rewardName)
-        await ticketContract.methods.rewardHolder((document.getElementById("receiverAddress").value), document.getElementById("reward")).send({from: accounts[0]});
+        await ticketContract.methods.rewardHolder((document.getElementById("receiverAddress").value), document.getElementById("reward").value).send({from: accounts[0]});
     };
 
     render() {
