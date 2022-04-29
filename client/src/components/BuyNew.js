@@ -44,7 +44,7 @@ class BuyNew extends Component {
 
     render() {
         const listItems = this.state.ticketsAvailable.map((link) =>
-            <button key={link.eventID} onClick={() => this.buyNewT(link.eventID)}>Buy ticket for {link.eventName} For presale {link.presale}</button>
+            <button key={link.eventID} onClick={() => this.buyNewT(link.eventID)}>Buy ticket for {link.eventName}{link.presale === true && <p>for presale only</p>}</button>
         );
         return (
             <div className="App">
