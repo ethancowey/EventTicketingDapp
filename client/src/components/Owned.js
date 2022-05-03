@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import QRCode from "react-qr-code";
+import  {geolocated}  from "react-geolocated";
 
 //import "./App.css";
 
@@ -53,7 +54,10 @@ class Owned extends Component {
     };
     //buyVendor(address to, address marketAddress, uint eventID, uint256 seatNum)
     generateQR = async (eventID) => {
-        this.setState({qrcode: eventID.eventName})
+        const date = new Date();
+        //console.log(this.props.isGeolocationAvailable);
+        //console.log(this.props.coords);
+        this.setState({qrcode:"Ticket ID "+ eventID.ticketID + " "+ eventID.eventName +" Time:" +date.getHours() +":"+ date.getMinutes() + " Location " + this.props.coords.longitude + " " + this.props.coords.latitude})
         };
 
 
@@ -71,5 +75,11 @@ class Owned extends Component {
         );
     }
 }
-
-export default Owned;
+//export default geolocated()(Owned);
+//export default Owned;
+export default geolocated({
+    positionOptions: {
+        enableHighAccuracy: false,
+    },
+    userDecisionTimeout: 5000,
+})(Owned);
