@@ -4,7 +4,7 @@ import React, { Component } from "react";
 class BuyPreowned extends Component {
     state = { ticketsForSale: []}
     componentDidMount = async () => {
-        const { marketContract} = this.props.parentState;
+        const { marketContract, ticketContract} = this.props.parentState;
         const listings = await marketContract.methods.fetchMarketItems().call(function (err, res) {
             if (err) {
                 console.log("An error occured", err)
@@ -14,7 +14,27 @@ class BuyPreowned extends Component {
             return res;
             //this.setState({ storageValue: res });
         });
-        this.setState({ticketsForSale: listings});
+        let object = [];
+        for (var key in listings) {
+            if (listings.hasOwnProperty(key)) {
+                console.log(listings[key].tokenId);
+                const eventDetails = await ticketContract.methods.ticketDetails(listings[key].tokenId).call(function (err, res) {
+                    if (err) {
+                        console.log("An error occured", err)
+                        return
+                    }
+                    console.log("The balance is: ", res);
+                    return res;
+                    //this.setState({ storageValue: res });
+                });
+                object.push({tokenId: listings[key].tokenId, itemId: listings[key].itemId, name: eventDetails.eventName});
+                //object[key].name = 'hello';
+                //object[key] = 'hello';
+                //listings.name = 'hello';
+            }
+        }
+        console.log(object);
+        this.setState({ticketsForSale: object});
     };
     buyPre = async (ticketID) => {
         const { accounts, ticketContract, marketContract } = this.props.parentState;
@@ -27,7 +47,7 @@ class BuyPreowned extends Component {
 
     render() {
         const listItems = this.state.ticketsForSale.map((link) =>
-            <button key={link.tokenId} onClick={() => this.buyPre(link.itemId)}>Buy preowned ticket for {link.tokenId}</button>
+            <button key={link.tokenId} onClick={() => this.buyPre(link.itemId)}>Buy preowned ticket for Event: {link.name} ID: {link.tokenId}</button>
         );
         return (
             <div className="App">
