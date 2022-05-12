@@ -74,7 +74,7 @@ class Admin extends Component {
                 <input type="string" name="receiver" id="receiverAddress"/>
                 <label>Reward name and details</label>
                 <input type="string" name="reward" id="reward"/>
-                <button onClick={this.issueReward}>Add new scanner</button>
+                <button onClick={this.issueReward}>Issue reward</button>
             </div>
         );
     }

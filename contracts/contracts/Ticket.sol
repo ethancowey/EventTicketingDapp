@@ -239,13 +239,13 @@ contract TicketMarket is ReentrancyGuard {
     function createMarketSale(
         address nftContract,
         uint256 itemId
-    ) public payable{
+    ) public payable nonReentrant{
         //uint price = idToMarketItem[itemId].price;
         uint tokenId = idToMarketItem[itemId].tokenId;
         require(msg.value == 1 ether, "Please submit the asking price in order to complete the purchase");
-        IERC721(nftContract).transferFrom(address(this), msg.sender, tokenId);
         idToMarketItem[itemId].seller.transfer(msg.value);
         idToMarketItem[itemId].owner = payable(msg.sender);
+        IERC721(nftContract).transferFrom(address(this), msg.sender, tokenId);
     }
 
     function fetchMarketItems() public view returns (MarketItem[] memory) {
