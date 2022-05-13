@@ -55,13 +55,10 @@ class BuyNew extends Component {
         );
         return (
             <div className="App">
+                <h2>Available tickets</h2>
                 <ul>
                     {listItems}
                 </ul>
-                <p>
-                    If your contracts compiled and migrated successfully, below will show
-                    a stored value of 5 (by default).
-                </p>
             </div>
         );
     }

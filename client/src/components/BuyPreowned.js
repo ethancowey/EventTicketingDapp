@@ -51,6 +51,7 @@ class BuyPreowned extends Component {
         );
         return (
             <div className="App">
+                <h2>Available tickets</h2>
                 <ul>
                     {listItems}
                 </ul>

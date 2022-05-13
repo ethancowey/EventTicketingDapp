@@ -67,9 +67,11 @@ class Owned extends Component {
         );
         return (
             <div className="App">
+                <h2>Your Tickets</h2>
                 <ul>
                     {listItems}
                 </ul>
+                <h2>Event QR code</h2>
                 <QRCode value={this.state.qrcode} />
             </div>
         );

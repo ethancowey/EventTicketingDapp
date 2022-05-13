@@ -80,7 +80,7 @@ class App extends Component {
     }
     return (
       <div className="App">
-        <h1>Good to Go!</h1>
+        <h1>Secure Event Ticketing</h1>
           <BrowserRouter>
               <Link to='/admin'> Admin Page</Link>
               <Link to='/scan'> Scanner Page</Link>

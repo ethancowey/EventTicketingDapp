@@ -50,10 +50,6 @@ class Admin extends Component {
         return (
             <div className="App">
                 <h1>ADMIN VENDOR</h1>
-                <p>
-                    If your contracts compiled and migrated successfully, below will show
-                    a stored value of 5 (by default).
-                </p>
                 <h2>Add a new event</h2>
                 <label>Event Name</label>
                 <input type="string" name="event name" id="name"/>

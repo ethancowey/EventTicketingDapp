@@ -79,6 +79,7 @@ class ListOwned extends Component {
         );
         return (
             <div className="App">
+                <h2>Available tickets to list for sale</h2>
                 <ul>
                     {listItems}
                 </ul>

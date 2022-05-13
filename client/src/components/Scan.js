@@ -33,6 +33,7 @@ class Scan extends Component {
             <div className="App">
                 <ul>
                 </ul>
+                <h2>Scan tickets</h2>
                 <label>Ticket ID</label>
                 <input type="number" name="event name" id="ticket"/>
                 <label>Event ID</label>
