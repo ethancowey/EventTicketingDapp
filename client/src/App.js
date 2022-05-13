@@ -82,12 +82,16 @@ class App extends Component {
       <div className="App">
         <h1>Secure Event Ticketing</h1>
           <BrowserRouter>
-              <Link to='/admin'> Admin Page</Link>
-              <Link to='/scan'> Scanner Page</Link>
-              <Link to='/buy'> Buy New</Link>
-              <Link to='/owned'> Your Tickets</Link>
-              <Link to='/marketplace'> Buy Preowned</Link>
-              <Link to='/list'> List a Ticket</Link>
+              <nav>
+                  <ul>
+                      <li><Link to='/admin'> Admin Page</Link></li>
+                      <li><Link to='/scan'> Scanner Page</Link></li>
+                      <li><Link to='/buy'> Buy New</Link></li>
+                      <li><Link to='/owned'> Your Tickets</Link></li>
+                      <li><Link to='/marketplace'> Buy Preowned</Link></li>
+                      <li><Link to='/list'> List a Ticket</Link></li>
+                  </ul>
+              </nav>
               <Routes>
                   <Route path="/marketplace" element={<BuyPreowned parentState = {this.state}/>}>
 
