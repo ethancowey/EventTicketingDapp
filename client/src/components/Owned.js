@@ -61,7 +61,7 @@ class Owned extends Component {
 
     render() {
         const listItems = this.state.ticketsOwned.map((link) =>
-            <button key={link.ticketID} onClick={() => this.generateQR(link)}>Generate QR code for {link.eventName}</button>
+            <button key={link.ticketID} onClick={() => this.generateQR(link)}>Generate QR code for {link.eventName} Ticket ID: {link.ticketID} for Event ID: {link.eventID}</button>
         );
         return (
             <div className="App">

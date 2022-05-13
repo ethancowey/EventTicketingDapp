@@ -60,7 +60,7 @@ class ListOwned extends Component {
 
     render() {
         const listItems = this.state.ticketsOwned.map((link) =>
-            <button key={link.ticketID} onClick={() => this.listItem(link.ticketID)}>List ticket {link.eventName} for 1 ETH</button>
+            <button key={link.ticketID} onClick={() => this.listItem(link.ticketID)}>List ticket for {link.eventName} Ticket ID: {link.ticketID} for 1 ETH</button>
         );
         return (
             <div className="App">
