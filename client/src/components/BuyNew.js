@@ -28,7 +28,11 @@ class BuyNew extends Component {
                 console.log(currentTicket.data);
                 id++;
             }
-            tickets.push(currentTicket);
+            if(currentTicket.seatsAvailable == 0){
+                console.log('no seats');
+            }else{
+                tickets.push(currentTicket);
+            }
         }
         console.log(tickets);
         this.setState({ticketsAvailable: tickets});

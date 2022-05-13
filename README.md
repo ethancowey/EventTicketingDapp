@@ -7,7 +7,7 @@ Start the local chain
 
 Migrate the contracts
 
-``truffle migrate``
+``cd contracts truffle migrate``
 
 Start the frontend
 
