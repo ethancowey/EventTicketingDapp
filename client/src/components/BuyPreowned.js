@@ -27,7 +27,11 @@ class BuyPreowned extends Component {
                     return res;
                     //this.setState({ storageValue: res });
                 });
-                object.push({tokenId: listings[key].tokenId, itemId: listings[key].itemId, name: eventDetails.eventName});
+                if(listings[key].itemId == 0 || listings[key] == '0'){
+                    console.log('empty entry');
+                }else{
+                    object.push({tokenId: listings[key].tokenId, itemId: listings[key].itemId, name: eventDetails.eventName});
+                }
                 //object[key].name = 'hello';
                 //object[key] = 'hello';
                 //listings.name = 'hello';

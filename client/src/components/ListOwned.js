@@ -57,21 +57,6 @@ class ListOwned extends Component {
         await ticketContract.methods.setApprovalForAll(marketContract._address, true).send({from: accounts[0]}).then();
         await marketContract.methods.createMarketItem(ticketContract._address, ticketID, 1).send({from: accounts[0], value: 10}).then();
     };
-    viewListed = async () => {
-        const {ticketContract, marketContract } = this.props.parentState;
-        console.log(ticketContract._address);
-        console.log(marketContract._address);
-        await marketContract.methods.fetchMarketItems().call(function (err, res) {
-            if (err) {
-                console.log("An error occured", err)
-                return
-            }
-            console.log("The balance is: ", res);
-            return res;
-            //this.setState({ storageValue: res });
-        });
-    };
-
 
     render() {
         const listItems = this.state.ticketsOwned.map((link) =>
@@ -83,7 +68,6 @@ class ListOwned extends Component {
                 <ul>
                     {listItems}
                 </ul>
-                <button onClick={this.viewListed}>Listed?</button>
             </div>
         );
     }

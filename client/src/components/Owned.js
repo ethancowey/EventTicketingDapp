@@ -55,8 +55,6 @@ class Owned extends Component {
     //buyVendor(address to, address marketAddress, uint eventID, uint256 seatNum)
     generateQR = async (eventID) => {
         const date = new Date();
-        //console.log(this.props.isGeolocationAvailable);
-        //console.log(this.props.coords);
         this.setState({qrcode:"Ticket ID "+ eventID.ticketID + " "+ eventID.eventName +" Time:" +date.getHours() +":"+ date.getMinutes() + " Location " + this.props.coords.longitude + " " + this.props.coords.latitude})
         };
 
